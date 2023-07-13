@@ -1,38 +1,64 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { fetchContacts, addContact, deleteContact } from './contacts/contactsOperations';
 
-const contactInitialState = [];
+const defaultsStatus = {
+  pending: 'pending',
+  rejected: 'rejected',
+}
+const actionFunctions = [fetchContacts, addContact, deleteContact];
 
-export const contactsSlice = createSlice({
-  name: 'contacts',
-  initialState: contactInitialState,
-  reducers: {
-    addContact: {
-      reducer(state, action) {
-        const { id, name, number } = action.payload;
-        const suchNameExists = state.some(
+const getActionFunctionsByStatus = (status) => actionFunctions.map((el) => el[status])
+
+const handlePending = state => {
+  state.isLoading = true;
+};
+
+const handleRejected = (state, { payload }) => {
+  state.isLoading = false;
+  state.error = payload;
+};
+
+const handleFulfilledOnFetchContacts = (state, { payload }) => {
+  state.isLoading = false;
+  state.error = null;
+  state.items = payload;
+}
+
+const handleFulfilledOnAddContact = (state, { payload }) => {
+  const { id, name, phone } = payload;
+        const suchNameExists = state.items.some(
           contact => contact.name.toLowerCase() === name.toLowerCase()
         );
         if (suchNameExists) {
           alert(`${name} is already in contacts.`);
           return;
         }
-        state.push({ id, name, number });
-      },
-      prepare(name, number) {
-        return {
-          payload: {
-            id: nanoid(),
-            name: name.trim(),
-            number: number.trim(),
-          },
-        };
-      },
-    },
-    deleteContact(state, action) {
-      return state.filter(contact => contact.id !== action.payload);
-    },
-  },
+        state.items.push({ id, name, phone });
+}
+
+const handleFulfilledOnDeleteContact = (state, { payload }) => {
+  state.isLoading = false;
+        const contactId = payload;
+        state.items = state.items.filter(contact => contact.id !== contactId.id);
+}
+
+const contactInitialState = {
+  items: [],
+  isLoading: false,
+  error: null
+};
+
+export const contactsSlice = createSlice({
+  name: 'contacts',
+  initialState: contactInitialState,
+  extraReducers: builder => {
+    builder
+      .addCase(fetchContacts.fulfilled, handleFulfilledOnFetchContacts)
+      .addCase(addContact.fulfilled, handleFulfilledOnAddContact)
+      .addCase(deleteContact.fulfilled, handleFulfilledOnDeleteContact)
+      .addMatcher(isAnyOf(...getActionFunctionsByStatus(defaultsStatus.pending)),handlePending)
+      .addMatcher(isAnyOf(...getActionFunctionsByStatus(defaultsStatus.rejected)),handleRejected)
+    }
 });
 
-export const { addContact, deleteContact } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;
