@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ContactItem from '../ContactItem';
-import { fetchContacts } from 'redux/contacts/contactsOperations';
+import { fetchContacts } from 'redux/operations/contactsOperations';
 import { ContactUl } from './ContactList.styled';
 
 const ContactList = () => {
