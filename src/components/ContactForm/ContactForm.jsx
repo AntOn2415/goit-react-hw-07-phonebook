@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { addContact } from 'redux/operations/contactsOperations';
-import { Form, LabelForm, InputForm, BtnForm } from './ContactForm.styled';
+import { isLoadingSelector} from 'redux/selectors';
+import { FormContainer, Form, LabelForm, InputForm, BtnForm } from './ContactForm.styled';
 
 function ContactForm() {
+  const isLoading = useSelector(isLoadingSelector);
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -30,19 +32,18 @@ function ContactForm() {
     dispatch(addContact({name, phone}));
     setName('');
     setPhone('');
-    console.log(name);
-    console.log(phone);
   };
 
   return (
-    <Form onSubmit={handleAddContact}>
+    <FormContainer>
+      <Form onSubmit={handleAddContact}>
       <LabelForm>
         Name
         <InputForm
           type="text"
           value={name}
           name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          pattern="^[a-zA-Zа-яА-ЯґҐєЄіІїЇ]+(([' \-][a-zA-Zа-яА-ЯґҐєЄіІїЇ ])?[a-zA-Zа-яА-ЯґҐєЄіІїЇ]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
           onChange={handleChange}
@@ -61,8 +62,10 @@ function ContactForm() {
         />
       </LabelForm>
 
-      <BtnForm type="submit">Add contact</BtnForm>
+      <BtnForm type="submit" isLoading={isLoading}>Add contact</BtnForm>
     </Form>
+    </FormContainer>
+    
   );
 }
 

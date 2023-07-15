@@ -1,18 +1,58 @@
+// import PropTypes from 'prop-types';
+// import React from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { deleteContact } from 'redux/operations/contactsOperations';
+// import { isLoadingSelector } from 'redux/selectors';
+// import { ContactLi, ContactBtn } from './ContactItem.styled';
+// import { Loader } from '../Loader/Loader';
+
+// const ContactItem = ({ contact }) => {
+//   const isLoading = useSelector(isLoadingSelector);
+//   const dispatch = useDispatch();
+//   const { name, phone } = contact;
+
+//   const onDeleteContact = contactId => {
+//     dispatch(deleteContact(contactId));
+//   };
+
+//   return (
+//     <ContactLi>
+//       <p>
+//         {name}: {phone}
+//       </p>
+//       <ContactBtn type="button" disabled={isDeleting} onClick={() => onDeleteContact(contact.id)}>
+//       { isLoading && <Loader />}
+//       Delete
+//       </ContactBtn>
+//     </ContactLi>
+//   );
+// };
+
+// ContactItem.propTypes = {
+//   contact: PropTypes.shape({
+//     name: PropTypes.string.isRequired,
+//     phone: PropTypes.string.isRequired,
+//   }).isRequired,
+// };
+
+// export default ContactItem;
+
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteContact } from 'redux/operations/contactsOperations';
 import { ContactLi, ContactBtn } from './ContactItem.styled';
+import { Loader } from '../Loader/Loader';
 
 const ContactItem = ({ contact }) => {
   const dispatch = useDispatch();
+  const [isDeleting, setIsDeleting] = useState(false);
   const { name, phone } = contact;
-
   const onDeleteContact = contactId => {
-    dispatch(deleteContact(contactId));
-
-    console.log(contactId);
-
+    setIsDeleting(true);
+    dispatch(deleteContact(contactId)).then(() => {
+      setIsDeleting(false);
+    });
   };
 
   return (
@@ -20,7 +60,8 @@ const ContactItem = ({ contact }) => {
       <p>
         {name}: {phone}
       </p>
-      <ContactBtn type="button" onClick={() => onDeleteContact(contact.id)}>
+      <ContactBtn type="button" disabled={isDeleting} onClick={() => onDeleteContact(contact.id)}>
+        {isDeleting && <Loader />}
         Delete
       </ContactBtn>
     </ContactLi>

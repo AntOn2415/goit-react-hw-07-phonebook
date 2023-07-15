@@ -1,5 +1,9 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact } from '../operations/contactsOperations';
+import {
+  fetchContacts,
+  addContact,
+  deleteContact,
+} from '../operations/contactsOperations';
 import {
   handlePending,
   handleRejected,
@@ -11,16 +15,17 @@ import {
 const defaultsStatus = {
   pending: 'pending',
   rejected: 'rejected',
-}
+};
 
 const actionFunctions = [fetchContacts, addContact, deleteContact];
 
-const getActionFunctionsByStatus = (status) => actionFunctions.map((el) => el[status])
+const getActionFunctionsByStatus = status =>
+  actionFunctions.map(el => el[status]);
 
 const contactInitialState = {
   items: [],
   isLoading: false,
-  error: null
+  error: null,
 };
 
 export const contactsSlice = createSlice({
@@ -31,9 +36,15 @@ export const contactsSlice = createSlice({
       .addCase(fetchContacts.fulfilled, handleFulfilledOnFetchContacts)
       .addCase(addContact.fulfilled, handleFulfilledOnAddContact)
       .addCase(deleteContact.fulfilled, handleFulfilledOnDeleteContact)
-      .addMatcher(isAnyOf(...getActionFunctionsByStatus(defaultsStatus.pending)),handlePending)
-      .addMatcher(isAnyOf(...getActionFunctionsByStatus(defaultsStatus.rejected)),handleRejected)
-    }
+      .addMatcher(
+        isAnyOf(...getActionFunctionsByStatus(defaultsStatus.pending)),
+        handlePending
+      )
+      .addMatcher(
+        isAnyOf(...getActionFunctionsByStatus(defaultsStatus.rejected)),
+        handleRejected
+      )
+  },
 });
 
 export const contactsReducer = contactsSlice.reducer;

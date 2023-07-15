@@ -10,8 +10,10 @@ border: 1px solid #27ae60;
 border-radius: 8px;
 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 `
+
 export const ContactBtn = styled.button`
-width: 60px;
+  position: relative;
+  min-width: 60px;
   padding: 4px;
   background-color: #27ae60;
   color: #fff;
@@ -24,6 +26,6 @@ width: 60px;
 
   :hover,
   :focus {
-  background-color: #2ecc71;
-}
-`
+    background-color: #2ecc71;
+  }
+`;

@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const FilterName = styled.label`
 display: flex;
 gap: 5px;
+margin-bottom: 10px;
 flex-direction: column;
 font-weight: 700;
 `
