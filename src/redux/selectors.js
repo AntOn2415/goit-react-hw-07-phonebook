@@ -1,6 +1,6 @@
 import { createSelector } from "@reduxjs/toolkit";
 
-const contactsSelector = state => state.contacts.items;
+export const contactsSelector = state => state.contacts.items;
 
 const memoizedContactsSelector = createSelector(
   contactsSelector,

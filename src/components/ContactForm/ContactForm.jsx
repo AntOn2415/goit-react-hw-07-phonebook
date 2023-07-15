@@ -62,7 +62,7 @@ function ContactForm() {
         />
       </LabelForm>
 
-      <BtnForm type="submit" isLoading={isLoading}>Add contact</BtnForm>
+      <BtnForm type="submit" isLoading={isLoading} disabled={isLoading}>Add contact</BtnForm>
     </Form>
     </FormContainer>
     

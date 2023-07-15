@@ -13,18 +13,22 @@ margin: 0;
 height: 30px;
 `
 
-export const ErrorP = styled.p`
+export const LoaderRotatingLinesContainer = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(39, 174, 96, 0.5);
   display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 8px;
-margin-bottom: 8px;
-max-width: 344px;
-height: auto;
-border: 1px solid #f4442e;
-background-color: rgba(244, 68, 46, 0.8);
-border-radius: 8px;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-font-weight: 400;
-font-size: 12px;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(6px);
+`;
+
+export const EmptyContactsMessage = styled.p`
+padding: 0;
+margin: 20px;
+font-size: 24px;
+  text-align: center;
 `

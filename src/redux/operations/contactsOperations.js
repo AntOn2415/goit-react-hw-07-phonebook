@@ -38,7 +38,7 @@ export const addContact = createAsyncThunk(
         throw new Error(`Sorry. A contact with the phone number ${phone} already exists.`);
       }
 
-      const createResponse = await axios.post("/contacts", { name, phone });
+    const createResponse = await axios.post("/contacts", { name, phone });
       return createResponse.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -57,3 +57,4 @@ export const deleteContact = createAsyncThunk(
     }
   }
 );
+
