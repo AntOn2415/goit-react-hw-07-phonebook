@@ -22,7 +22,11 @@ const ContactItem = ({ contact }) => {
       <p>
         {name}: {phone}
       </p>
-      <ContactBtn type="button" disabled={isDeleting} onClick={() => onDeleteContact(contact.id)}>
+      <ContactBtn
+        type="button"
+        disabled={isDeleting}
+        onClick={() => onDeleteContact(contact.id)}
+      >
         {isDeleting && <Loader />}
         Delete
       </ContactBtn>

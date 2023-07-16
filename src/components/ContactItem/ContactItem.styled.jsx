@@ -1,15 +1,15 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ContactLi = styled.li`
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: 8px;
-max-width: 344px;
-border: 1px solid #27ae60;
-border-radius: 8px;
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  max-width: 344px;
+  border: 1px solid #27ae60;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+`;
 
 export const ContactBtn = styled.button`
   position: relative;
@@ -17,7 +17,7 @@ export const ContactBtn = styled.button`
   padding: 4px;
   background-color: #27ae60;
   color: #fff;
-  outline-color: #27ae60;
+  outline: none;
   border: none;
   border-radius: 10px;
   cursor: pointer;

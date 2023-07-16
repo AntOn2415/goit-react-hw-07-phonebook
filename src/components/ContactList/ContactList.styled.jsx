@@ -1,17 +1,17 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ContactUl = styled.ul`
-padding: 0;
-margin: 0;
-display: flex;
-flex-direction: column;
-gap: 8px;
-`
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
 export const LoaderContainer = styled.div`
-padding: 0;
-margin: 0;
-height: 30px;
-`
+  padding: 0;
+  margin: 0;
+  height: 30px;
+`;
 
 export const LoaderRotatingLinesContainer = styled.div`
   position: fixed;
@@ -27,8 +27,8 @@ export const LoaderRotatingLinesContainer = styled.div`
 `;
 
 export const EmptyContactsMessage = styled.p`
-padding: 0;
-margin: 20px;
-font-size: 24px;
+  padding: 0;
+  margin: 20px;
+  font-size: 24px;
   text-align: center;
-`
+`;

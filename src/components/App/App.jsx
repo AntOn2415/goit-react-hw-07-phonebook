@@ -7,7 +7,6 @@ import { ContainerDiv, TitleH1, TitleH2 } from './App.styled';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
-
   return (
     <ContainerDiv>
       <TitleH1>Phonebook</TitleH1>

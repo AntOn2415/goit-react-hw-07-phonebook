@@ -20,12 +20,14 @@ import {
 const ContactList = () => {
   const isLoading = useSelector(isLoadingSelector);
   const error = useSelector(errorSelector);
-  const filter = useSelector(memoizedFilteredContactsSelector);
+  const filteredContacts = useSelector(memoizedFilteredContactsSelector);
   const contacts = useSelector(contactsSelector);
   const dispatch = useDispatch();
-  const contactsLength = contacts.length;
   const [isFetchingContacts, setIsFetchingContacts] = useState(false);
   const [showEmptyMessage, setShowEmptyMessage] = useState(false);
+
+  const contactsLength = contacts.length;
+  const isEmptyFilter = filteredContacts.length === 0;
 
   useEffect(() => {
     setIsFetchingContacts(true);
@@ -53,7 +55,7 @@ const ContactList = () => {
     );
   }
 
-  if (contactsLength > 0 && filter.length === 0) {
+  if (contactsLength > 0 && isEmptyFilter) {
     return <EmptyContactsMessage>No matching contacts</EmptyContactsMessage>;
   }
 
@@ -62,9 +64,9 @@ const ContactList = () => {
       <LoaderContainer>
         {isLoading && showEmptyMessage && <LoaderThreeDots />}
       </LoaderContainer>
-      {filter.length > 0 && (
+      {!isEmptyFilter && (
         <ContactUl>
-          {filter.map(contact => (
+          {filteredContacts.map(contact => (
             <ContactItem key={contact.id} contact={contact} />
           ))}
         </ContactUl>

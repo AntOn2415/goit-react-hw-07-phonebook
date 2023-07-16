@@ -43,7 +43,7 @@ export const contactsSlice = createSlice({
       .addMatcher(
         isAnyOf(...getActionFunctionsByStatus(defaultsStatus.rejected)),
         handleRejected
-      )
+      );
   },
 });
 

@@ -42,7 +42,7 @@ const LoaderRotatingLines = () => {
         strokeColor="#fff"
         strokeWidth="5"
         animationDuration="0.75"
-        width="100"
+        width="60"
         visible={true}
       />
     </div>
